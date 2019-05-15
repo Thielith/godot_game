@@ -1,0 +1,91 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://scripts/interface_battle_selector.gd" type="Script" id=1]
+[ext_resource path="res://sprites/hud/battle_button_attack.png" type="Texture" id=2]
+[ext_resource path="res://sprites/hud/battle_button_defend.png" type="Texture" id=3]
+[ext_resource path="res://sprites/hud/battle_button_run.png" type="Texture" id=4]
+[ext_resource path="res://sprites/hud/battle_button_items.png" type="Texture" id=5]
+[ext_resource path="res://animation_attack_items.tres" type="Animation" id=6]
+[ext_resource path="res://animation_defend_attack.tres" type="Animation" id=7]
+[ext_resource path="res://animation_items_run.tres" type="Animation" id=8]
+[ext_resource path="res://animation_run_defend.tres" type="Animation" id=9]
+
+
+[node name="choices" type="Control"]
+anchor_left = 0.124
+anchor_top = 0.098
+anchor_right = 0.124
+anchor_bottom = 0.098
+margin_left = -49.6
+margin_top = -22.2161
+margin_right = 49.4
+margin_bottom = 21.7839
+script = ExtResource( 1 )
+
+[node name="attack" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -11.822
+margin_top = -6.102
+margin_right = 11.178
+margin_bottom = 21.898
+rect_pivot_offset = Vector2( 11.5, 14 )
+focus_mode = 2
+mouse_filter = 0
+texture = ExtResource( 2 )
+
+[node name="defend" type="TextureRect" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -51.822
+margin_top = -13.268
+margin_right = -28.822
+margin_bottom = 14.732
+rect_scale = Vector2( 0.75, 0.75 )
+rect_pivot_offset = Vector2( 11.5, 14 )
+focus_mode = 2
+mouse_filter = 0
+texture = ExtResource( 3 )
+
+[node name="run" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.501961 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -10.822
+margin_top = -28.81
+margin_right = 12.178
+margin_bottom = -0.809954
+rect_scale = Vector2( 0.5, 0.5 )
+rect_pivot_offset = Vector2( 11.5, 14 )
+focus_mode = 2
+mouse_filter = 0
+texture = ExtResource( 4 )
+
+[node name="items" type="TextureRect" parent="."]
+modulate = Color( 1, 1, 1, 0.752941 )
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = 28.178
+margin_top = -13.102
+margin_right = 51.178
+margin_bottom = 14.898
+rect_scale = Vector2( 0.75, 0.75 )
+rect_pivot_offset = Vector2( 11.5, 14 )
+focus_mode = 2
+mouse_filter = 0
+texture = ExtResource( 5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+"anims/attack -> items" = ExtResource( 6 )
+"anims/defend -> attack" = ExtResource( 7 )
+"anims/items -> run" = ExtResource( 8 )
+"anims/run -> defend" = ExtResource( 9 )
+

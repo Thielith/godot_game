@@ -1,0 +1,91 @@
+[gd_scene load_steps=25 format=2]
+
+[ext_resource path="res://characters/player/player.gd" type="Script" id=1]
+[ext_resource path="res://characters/player/sprites/player_base.png" type="Texture" id=2]
+[ext_resource path="res://characters/player/sprites/idle/pose_0.png" type="Texture" id=3]
+[ext_resource path="res://characters/player/sprites/idle/pose_1.png" type="Texture" id=4]
+[ext_resource path="res://characters/player/sprites/idle/pose_2.png" type="Texture" id=5]
+[ext_resource path="res://characters/player/sprites/jump/pose_0.png" type="Texture" id=6]
+[ext_resource path="res://characters/player/sprites/jump/pose_1.png" type="Texture" id=7]
+[ext_resource path="res://characters/player/sprites/jump/pose_2.png" type="Texture" id=8]
+[ext_resource path="res://characters/player/sprites/jump/pose_3.png" type="Texture" id=9]
+[ext_resource path="res://characters/player/sprites/jump/pose_4.png" type="Texture" id=10]
+[ext_resource path="res://characters/player/sprites/jump/pose_5.png" type="Texture" id=11]
+[ext_resource path="res://characters/player/sprites/run/pose_2.png" type="Texture" id=12]
+[ext_resource path="res://characters/player/sprites/run/pose_3.png" type="Texture" id=13]
+[ext_resource path="res://characters/player/sprites/run/pose_1.png" type="Texture" id=14]
+[ext_resource path="res://characters/player/sprites/run/pose_0.png" type="Texture" id=15]
+[ext_resource path="res://characters/player/sprites/walk/pose_2.png" type="Texture" id=16]
+[ext_resource path="res://characters/player/sprites/walk/pose_3.png" type="Texture" id=17]
+[ext_resource path="res://characters/player/sprites/walk/pose_1.png" type="Texture" id=18]
+[ext_resource path="res://characters/player/sprites/walk/pose_0.png" type="Texture" id=19]
+[ext_resource path="res://characters/player/sprites/slide/pose_1.png" type="Texture" id=20]
+[ext_resource path="res://characters/player/sprites/slide/pose_0.png" type="Texture" id=21]
+[ext_resource path="res://characters/player/player_state.gd" type="Script" id=22]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": true,
+"name": "idle",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"loop": false,
+"name": "jump",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": false,
+"name": "fall",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 2 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 14 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "run",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 16 ), ExtResource( 17 ), ExtResource( 16 ), ExtResource( 2 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 18 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "walk",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ) ],
+"loop": false,
+"name": "fall_ledge",
+"speed": 15.0
+}, {
+"frames": [ ExtResource( 20 ) ],
+"loop": false,
+"name": "slide_front",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 21 ) ],
+"loop": false,
+"name": "slide_back",
+"speed": 10.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 10, 37.0932 )
+
+[node name="Player" type="KinematicBody2D"]
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+position = Vector2( -25.0184, -76.7583 )
+frames = SubResource( 1 )
+animation = "idle"
+centered = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0.00895309, -37.245 )
+shape = SubResource( 2 )
+disabled = true
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 10.0108, -0.13387, 10.0007, -74.3395, -9.99088, -74.3278, -9.95444, -0.13387 )
+
+[node name="me" type="Node" parent="."]
+script = ExtResource( 22 )
+
