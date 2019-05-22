@@ -1,27 +1,48 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=47 format=2]
 
 [ext_resource path="res://characters/player/player.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/sprites/player_base.png" type="Texture" id=2]
 [ext_resource path="res://characters/player/sprites/idle/pose_0.png" type="Texture" id=3]
 [ext_resource path="res://characters/player/sprites/idle/pose_1.png" type="Texture" id=4]
 [ext_resource path="res://characters/player/sprites/idle/pose_2.png" type="Texture" id=5]
-[ext_resource path="res://characters/player/sprites/jump/pose_0.png" type="Texture" id=6]
-[ext_resource path="res://characters/player/sprites/jump/pose_1.png" type="Texture" id=7]
-[ext_resource path="res://characters/player/sprites/jump/pose_2.png" type="Texture" id=8]
-[ext_resource path="res://characters/player/sprites/jump/pose_3.png" type="Texture" id=9]
-[ext_resource path="res://characters/player/sprites/jump/pose_4.png" type="Texture" id=10]
-[ext_resource path="res://characters/player/sprites/jump/pose_5.png" type="Texture" id=11]
-[ext_resource path="res://characters/player/sprites/run/pose_2.png" type="Texture" id=12]
-[ext_resource path="res://characters/player/sprites/run/pose_3.png" type="Texture" id=13]
-[ext_resource path="res://characters/player/sprites/run/pose_1.png" type="Texture" id=14]
-[ext_resource path="res://characters/player/sprites/run/pose_0.png" type="Texture" id=15]
-[ext_resource path="res://characters/player/sprites/walk/pose_2.png" type="Texture" id=16]
-[ext_resource path="res://characters/player/sprites/walk/pose_3.png" type="Texture" id=17]
-[ext_resource path="res://characters/player/sprites/walk/pose_1.png" type="Texture" id=18]
-[ext_resource path="res://characters/player/sprites/walk/pose_0.png" type="Texture" id=19]
-[ext_resource path="res://characters/player/sprites/slide/pose_1.png" type="Texture" id=20]
-[ext_resource path="res://characters/player/sprites/slide/pose_0.png" type="Texture" id=21]
-[ext_resource path="res://characters/player/player_state.gd" type="Script" id=22]
+[ext_resource path="res://characters/player/sprites/idle/crouch/pose_0.png" type="Texture" id=6]
+[ext_resource path="res://characters/player/sprites/walk/crouch/pose_3.png" type="Texture" id=7]
+[ext_resource path="res://characters/player/sprites/walk/crouch/pose_4.png" type="Texture" id=8]
+[ext_resource path="res://characters/player/sprites/walk/crouch/pose_5.png" type="Texture" id=9]
+[ext_resource path="res://characters/player/sprites/walk/crouch/pose_7.png" type="Texture" id=10]
+[ext_resource path="res://characters/player/sprites/walk/crouch/pose_6.png" type="Texture" id=11]
+[ext_resource path="res://characters/player/sprites/walk/crouch/pose_8.png" type="Texture" id=12]
+[ext_resource path="res://characters/player/sprites/walk/crouch/pose_9.png" type="Texture" id=13]
+[ext_resource path="res://characters/player/sprites/walk/crouch/pose_10.png" type="Texture" id=14]
+[ext_resource path="res://characters/player/sprites/walk/crouch/pose_11.png" type="Texture" id=15]
+[ext_resource path="res://characters/player/sprites/walk/crouch/pose_0.png" type="Texture" id=16]
+[ext_resource path="res://characters/player/sprites/walk/crouch/pose_1.png" type="Texture" id=17]
+[ext_resource path="res://characters/player/sprites/walk/crouch/pose_2.png" type="Texture" id=18]
+[ext_resource path="res://characters/player/sprites/jump/pose_0.png" type="Texture" id=19]
+[ext_resource path="res://characters/player/sprites/jump/pose_1.png" type="Texture" id=20]
+[ext_resource path="res://characters/player/sprites/jump/pose_2.png" type="Texture" id=21]
+[ext_resource path="res://characters/player/sprites/jump/pose_3.png" type="Texture" id=22]
+[ext_resource path="res://characters/player/sprites/jump/pose_4.png" type="Texture" id=23]
+[ext_resource path="res://characters/player/sprites/jump/pose_5.png" type="Texture" id=24]
+[ext_resource path="res://characters/player/sprites/walk/pose_3.png" type="Texture" id=25]
+[ext_resource path="res://characters/player/sprites/walk/pose_4.png" type="Texture" id=26]
+[ext_resource path="res://characters/player/sprites/walk/pose_5.png" type="Texture" id=27]
+[ext_resource path="res://characters/player/sprites/walk/pose_6.png" type="Texture" id=28]
+[ext_resource path="res://characters/player/sprites/walk/pose_7.png" type="Texture" id=29]
+[ext_resource path="res://characters/player/sprites/walk/pose_8.png" type="Texture" id=30]
+[ext_resource path="res://characters/player/sprites/walk/pose_9.png" type="Texture" id=31]
+[ext_resource path="res://characters/player/sprites/walk/pose_10.png" type="Texture" id=32]
+[ext_resource path="res://characters/player/sprites/walk/pose_11.png" type="Texture" id=33]
+[ext_resource path="res://characters/player/sprites/walk/pose_0.png" type="Texture" id=34]
+[ext_resource path="res://characters/player/sprites/walk/pose_1.png" type="Texture" id=35]
+[ext_resource path="res://characters/player/sprites/walk/pose_2.png" type="Texture" id=36]
+[ext_resource path="res://characters/player/sprites/run/pose_2.png" type="Texture" id=37]
+[ext_resource path="res://characters/player/sprites/run/pose_3.png" type="Texture" id=38]
+[ext_resource path="res://characters/player/sprites/run/pose_1.png" type="Texture" id=39]
+[ext_resource path="res://characters/player/sprites/run/pose_0.png" type="Texture" id=40]
+[ext_resource path="res://characters/player/sprites/slide/pose_1.png" type="Texture" id=41]
+[ext_resource path="res://characters/player/sprites/slide/pose_0.png" type="Texture" id=42]
+[ext_resource path="res://characters/player/player_state.gd" type="Script" id=43]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -30,44 +51,57 @@ animations = [ {
 "name": "idle",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 6 ), ExtResource( 7 ) ],
+"frames": [ ExtResource( 6 ) ],
+"loop": true,
+"name": "crouch",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ) ],
+"loop": true,
+"name": "crouch_walk",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 19 ), ExtResource( 20 ) ],
 "loop": false,
 "name": "jump",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ) ],
+"frames": [ ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ) ],
 "loop": false,
 "name": "fall",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 12 ), ExtResource( 13 ), ExtResource( 12 ), ExtResource( 2 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 14 ), ExtResource( 2 ) ],
-"loop": true,
-"name": "run",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 16 ), ExtResource( 17 ), ExtResource( 16 ), ExtResource( 2 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 18 ), ExtResource( 2 ) ],
-"loop": true,
-"name": "walk",
-"speed": 10.0
-}, {
-"frames": [ ExtResource( 10 ), ExtResource( 11 ) ],
+"frames": [ ExtResource( 23 ), ExtResource( 24 ) ],
 "loop": false,
 "name": "fall_ledge",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 20 ) ],
-"loop": false,
-"name": "slide_front",
+"frames": [ ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ) ],
+"loop": true,
+"name": "walk",
 "speed": 10.0
 }, {
-"frames": [ ExtResource( 21 ) ],
+"frames": [ ExtResource( 37 ), ExtResource( 38 ), ExtResource( 37 ), ExtResource( 2 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 39 ), ExtResource( 2 ) ],
+"loop": true,
+"name": "run",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 41 ) ],
 "loop": false,
-"name": "slide_back",
+"name": "turn_right",
+"speed": 10.0
+}, {
+"frames": [ ExtResource( 42 ) ],
+"loop": false,
+"name": "turn_left",
 "speed": 10.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 10, 37.0932 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 10, 33.9256 )
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -78,14 +112,25 @@ frames = SubResource( 1 )
 animation = "idle"
 centered = false
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionStand" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 10.0108, -0.13387, 10.0007, -74.3395, -9.99088, -74.3278, -9.95444, -0.13387 )
+
+[node name="Vision" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( 0.00895309, -37.245 )
 shape = SubResource( 2 )
 disabled = true
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
-polygon = PoolVector2Array( 10.0108, -0.13387, 10.0007, -74.3395, -9.99088, -74.3278, -9.95444, -0.13387 )
+[node name="CollisionCrouch" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 10.0108, -0.13387, 10.1701, -63.8364, -10.1036, -63.8364, -9.98954, -0.0932159 )
+disabled = true
+
+[node name="VisionCrouch" type="CollisionShape2D" parent="."]
+visible = false
+position = Vector2( 0, -34.4748 )
+shape = SubResource( 3 )
+disabled = true
 
 [node name="me" type="Node" parent="."]
-script = ExtResource( 22 )
+script = ExtResource( 43 )
 

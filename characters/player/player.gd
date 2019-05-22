@@ -1,10 +1,11 @@
 extends character
 
 #Player variables
-var direction : String = ""
+var direction : int
 
 var run_speed = 100
 var running : bool = false
+var jumpPressedRemeber = 0
 
 func _ready():
 	characterName = globals.playerName
@@ -15,22 +16,28 @@ func _ready():
 
 func _physics_process(delta):
 #	print("Velocity " + self.characterName + ": " + str(velocity))
-	if Input.is_action_pressed("ui_left"):
+	direction = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
+	jumpPressedRemeber -= delta
+	if jumpPressedRemeber > 0:
+		jumpPressedRemeber = 0
+		jump()
+	
+	if direction < 0:
 		move("left")
-	elif Input.is_action_pressed("ui_right"):
+	elif direction > 0:
 		move("right")
-	else:
+	elif direction == 0:
 		move("")
 
 func updateSprite(animation : String):
 	updateSpriteB(animation)
 	if animation == "run" and velocity.y == 0:
 		$AnimatedSprite.play("run")
-	if animation == "slide":
+	if animation == "turn":
 		if velocity.x < 0:
-			$AnimatedSprite.play("slide_front")
+			$AnimatedSprite.play("turn_right")
 		elif velocity.x > 0:
-			$AnimatedSprite.play("slide_back")
+			$AnimatedSprite.play("turn_left")
 
 #----------------------------------------------------------------------------------
 

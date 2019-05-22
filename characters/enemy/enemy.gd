@@ -42,7 +42,7 @@ func sees_player():
 	var eye_right = eye_center + Vector2(eye_reach, 0)
 	
 	var player_pos = player.pos
-	var player_extents = player.get_node("CollisionShape2D").shape.extents - Vector2(3, 3)
+	var player_extents = player.get_node("Vision").shape.extents - Vector2(3, 3)
 	var top_left = player_pos +  Vector2(-player_extents.x, -player_extents.y)
 	var top_right = player_pos +  Vector2(player_extents.x, -player_extents.y)
 	var bottom_left = player_pos +  Vector2(-player_extents.x, player_extents.y)
@@ -58,7 +58,7 @@ func sees_player():
 					return true
 	return false
 
-func updateSprite(animation : String, flip):
-	updateSpriteB(animation, flip)
+func updateSprite(animation : String):
+	updateSpriteB(animation)
 #	if animation == "run" and velocity.y == 0:
 #		$AnimatedSprite.play("run")
