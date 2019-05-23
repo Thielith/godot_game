@@ -2,6 +2,7 @@ extends character
 
 #Player variables
 var direction : int
+onready var gravityDefault : float = gravity
 
 var run_speed = 100
 var running : bool = false
@@ -16,18 +17,14 @@ func _ready():
 
 func _physics_process(delta):
 #	print("Velocity " + self.characterName + ": " + str(velocity))
+#	print(pos)
 	direction = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
 	jumpPressedRemeber -= delta
 	if jumpPressedRemeber > 0:
 		jumpPressedRemeber = 0
 		jump()
 	
-	if direction < 0:
-		move("left")
-	elif direction > 0:
-		move("right")
-	elif direction == 0:
-		move("")
+	move(direction)
 
 func updateSprite(animation : String):
 	updateSpriteB(animation)
@@ -38,6 +35,11 @@ func updateSprite(animation : String):
 			$AnimatedSprite.play("turn_right")
 		elif velocity.x > 0:
 			$AnimatedSprite.play("turn_left")
+	if animation == "slide_wall":
+		if direction == 0:
+			$AnimatedSprite.speed_scale = 5
+		else:
+			$AnimatedSprite.speed_scale = 1
 
 #----------------------------------------------------------------------------------
 
