@@ -16,8 +16,10 @@ func _ready():
 	mana = globals.playerMana
 
 func _physics_process(delta):
+	Engine.time_scale = 1
 #	print("Velocity " + self.characterName + ": " + str(velocity))
 #	print(pos)
+#	print($AnimatedSprite.flip_h)
 	direction = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
 	jumpPressedRemeber -= delta
 	if jumpPressedRemeber > 0:
@@ -25,6 +27,9 @@ func _physics_process(delta):
 		jump()
 	
 	move(direction)
+	
+	if get_node("me").on_wall and direction < 0:
+		$AnimatedSprite.flip_h = true
 
 func updateSprite(animation : String):
 	updateSpriteB(animation)

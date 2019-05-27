@@ -14,44 +14,47 @@ func _ready():
 	add_state("crouching")
 	add_state("crouch_walking")
 	add_state("sliding_wall")
+	add_state("jumping_wall")
 
 func _physics_process(delta):
 	if parent.direction != 0 and parent.velocity.y > 0.01:
 		if parent.is_on_wall() or on_wall:
-			if parent.direction != storedDirection:
+			if parent.direction != storedDirection or abs(parent.velocity.x) > 10:
 				on_wall = false
 			else:
 				on_wall = true
 				parent.velocity.y = 30
 			
-	elif parent.velocity.x > 4 or parent.velocity.x < -4:
+	elif parent.velocity.x > 4 or parent.velocity.x < -4 or parent.direction == 0:
 		on_wall = false
 	storedDirection = parent.direction
+	
+	if Input.is_action_pressed("run") and not [states.crouching, states.crouch_walking].has(state):
+		parent.max_speed = parent.run_speed
+		parent.running = true
+	else:
+		parent.max_speed = parent.walk_speed
+		parent.running = false
 
 func _input(event):
 	if [states.idle, states.walking, states.running, states.turning_left, states.turning_right].has(state):
-		if Input.is_action_pressed("ui_up") and state != states.jumping:
+		if Input.is_action_pressed("jump") and state != states.jumping:
 			parent.jumpPressedRemeber = jumpPressedRemeberTime
 	
-	if Input.is_action_just_pressed("ui_up"):
+	if Input.is_action_just_pressed("jump"):
 		canJumpRemeber = canJumpRemeberTime
 		if state == states.sliding_wall and parent.direction != 0:
 			parent.jump()
-			parent.launch(-80 * parent.direction, null)
+			parent.launch(-100 * parent.direction, null)
 	
-	if Input.is_action_just_pressed("ui_down"):
+	if Input.is_action_pressed("ui_down") and not parent.running:
 		parent.get_node("CollisionStand").disabled = true
 		parent.get_node("CollisionCrouch").disabled = false
 	if Input.is_action_just_released("ui_down"):
 		parent.get_node("CollisionStand").disabled = false
 		parent.get_node("CollisionCrouch").disabled = true
 		
-	if Input.is_action_pressed("run"):
-		parent.max_speed = parent.run_speed
-		parent.running = true
-	else:
-		parent.max_speed = parent.walk_speed
-		parent.running = false
+	
 
 func _get_transition(delta):
 	canJumpRemeber -= delta
@@ -60,7 +63,7 @@ func _get_transition(delta):
 			if parent.velocity.x != 0:
 				if parent.running:
 					return states.running
-			if Input.is_action_just_pressed("ui_down"):
+			if parent.get_node("CollisionCrouch").disabled == false:
 				return states.crouching
 		
 		states.walking:
@@ -71,13 +74,11 @@ func _get_transition(delta):
 					return states.falling
 			if parent.running:
 				return states.running
-			if Input.is_action_just_pressed("ui_down"):
+			if parent.get_node("CollisionCrouch").disabled == false:
 				return states.crouch_walking
 		
 		states.running:
 			if not parent.is_on_floor():
-				print("not on floor")
-				print(canJumpRemeber)
 				if parent.velocity.y < 0:
 					return states.jumping
 				elif parent.velocity.y > 0:
@@ -120,6 +121,11 @@ func _get_transition(delta):
 				return states.crouch_walking
 		
 		states.crouch_walking:
+			if not parent.is_on_floor():
+				if parent.velocity.y < 0:
+					return states.jumping
+				elif parent.velocity.y > 0:
+					return states.falling
 			if Input.is_action_just_released("ui_down"):
 				return states.walking
 			if parent.velocity.x == 0:
@@ -139,9 +145,15 @@ func _get_transition(delta):
 				return states.idle
 			if parent.velocity.y < 0:
 				parent.get_node("AnimatedSprite").speed_scale = 1
-				return states.jumping
+				return states.jumping_wall
 			if not on_wall:
 				parent.get_node("AnimatedSprite").speed_scale = 1
+				return states.falling
+		
+		states.jumping_wall:
+			if parent.on_ground and parent.velocity.y == 0:
+				return states.idle
+			elif parent.velocity.y > 0:
 				return states.falling
 		
 	return _get_transitionB(delta)
@@ -160,6 +172,8 @@ func _enter_state(new_state, old_state):
 			parent.updateSprite("crouch_walk")
 		states.sliding_wall:
 			parent.updateSprite("slide_wall")
+		states.jumping_wall:
+			parent.updateSprite("jump_wall")
 	_enter_stateB(new_state, old_state)
 
 func _exit_state(old_state, new_state):
