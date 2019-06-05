@@ -8,43 +8,77 @@ var run_speed = 100
 var running : bool = false
 var jumpPressedRemeber = 0
 
+var currentState
+
 func _ready():
 	characterName = globals.playerName
 	health = globals.playerHealth
 	defense = globals.playerDefense
 	strength = globals.playerStrength
 	mana = globals.playerMana
+	
+	playback = animationTree.get("parameters/playback")
+	playback.start("idle")
+	animationTree.active = true
 
 func _physics_process(delta):
-	Engine.time_scale = 1
-#	print("Velocity " + self.characterName + ": " + str(velocity))
-#	print(pos)
-#	print($AnimatedSprite.flip_h)
-	direction = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
+	enableGravity(delta)
+	move(direction)
 	jumpPressedRemeber -= delta
 	if jumpPressedRemeber > 0:
 		jumpPressedRemeber = 0
 		jump()
-	
-	move(direction)
-	
-	if get_node("me").on_wall and direction < 0:
-		$AnimatedSprite.flip_h = true
 
-func updateSprite(animation : String):
-	updateSpriteB(animation)
-	if animation == "run" and velocity.y == 0:
-		$AnimatedSprite.play("run")
-	if animation == "turn":
-		if velocity.x < 0:
-			$AnimatedSprite.play("turn_right")
-		elif velocity.x > 0:
-			$AnimatedSprite.play("turn_left")
-	if animation == "slide_wall":
-		if direction == 0:
-			$AnimatedSprite.speed_scale = 5
-		else:
-			$AnimatedSprite.speed_scale = 1
+func _process(delta):
+	_input_process()
+	_state_process()
+
+func _input_process():
+	direction = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
+	if Input.is_action_just_pressed("jump"):
+		jump()
+	if Input.is_action_pressed("run") and not ["idle_crouch", "walk_crouch"].has(currentState):
+		max_speed = run_speed
+	else:
+		max_speed = walk_speed
+
+func _state_process():
+	currentState = playback.get_current_node()
+	match playback.get_current_node():
+		"idle":
+			if Input.is_action_pressed("ui_down"):
+				playback.travel("idle_crouch")
+		"idle_crouch":
+			if velocity.x != 0:
+				playback.travel("walk_crouch")
+			if not Input.is_action_pressed("ui_down"):
+				playback.travel("idle")
+		"walk":
+			if Input.is_action_pressed("ui_down"):
+				playback.travel("walk_crouch")
+			if Input.is_action_pressed("run"):
+				playback.travel("run")
+		"walk_crouch":
+			if velocity.x == 0:
+				playback.travel("idle_crouch")
+			if not Input.is_action_pressed("ui_down"):
+				playback.travel("walk")
+		"run":
+			if not Input.is_action_pressed("run"):
+				playback.travel("walk")
+			if velocity.x == 0:
+				playback.travel("idle")
+			if velocity.y < 0:
+				playback.travel("jump")
+			if velocity.y > 0:
+				playback.travel("fall_ledge")
+		"fall_ledge":
+			if velocity.y == 0:
+				playback.travel("idle")
+		"slide_wall":
+			pass
+		"jump_wall":
+			pass
 
 #----------------------------------------------------------------------------------
 

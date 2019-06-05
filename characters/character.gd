@@ -9,7 +9,7 @@ onready var mana : int
 
 onready var velocity : Vector2 = Vector2(0 ,0)
 const FLOOR = Vector2(0, -1)
-onready var gravity : float = 10
+onready var gravity = globals.gravity
 
 onready var collide = move_and_collide(velocity * 0.0001)
 onready var pos = get_position()
@@ -20,15 +20,39 @@ const jump_force : int = -250
 
 var onGroundRemeber = 0
 var onGroundRemeberTime = 0.2
-onready var on_ground : bool = true
+onready var on_ground : bool
 
-func updateSpriteB(animation : String):
-	if animation == "fall" and on_ground:
-		$AnimatedSprite.play("fall_ledge")
-	else:
-		$AnimatedSprite.play(animation)
-#	print(animation)
+onready var animationTree = get_node("AnimationTree")
+onready var animationPlayer = get_node("AnimationPlayer")
+onready var playback = animationTree.get("parameters/playback")
 
+
+func _ready():
+	playback.start("idle")
+	animationTree.active = true
+
+func _process(delta):
+	match playback.get_current_node():
+		"idle":
+			if velocity.x != 0:
+				playback.travel("walk")
+			if velocity.y < 0:
+				playback.travel("jump")
+			if velocity.y > 0:
+				playback.travel("fall_ledge")
+		"walk":
+			if velocity.x == 0:
+				playback.travel("idle")
+			if velocity.y < 0:
+				playback.travel("jump")
+			if velocity.y > 0:
+				playback.travel("fall_ledge")
+		"jump":
+			if velocity.y > 0:
+				playback.travel("fall")
+		"fall":
+			if velocity.y == 0:
+				playback.travel("idle")
 
 func enableGravity(delta):
 	#Updates Postion
@@ -48,10 +72,9 @@ func enableGravity(delta):
 		on_ground = false
 	
 	if velocity.x < 0:
-		$AnimatedSprite.flip_h = true
-	if velocity.x > 0:
-		$AnimatedSprite.flip_h = false
-
+		$Sprite.scale.x = -1
+	elif velocity.x > 0:
+		$Sprite.scale.x = 1
 
 func idle():
 	if velocity.y == 0:

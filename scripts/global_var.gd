@@ -10,6 +10,9 @@ var enemyName : String = "enemy name"
 var enemyHealth : int = 10
 var enemyDefense : int = 0
 var enemyStrength : int = 1
+var enemyMana : int = 10
+
+var gravity : float = 10
 
 func _ready():
 	randomize()

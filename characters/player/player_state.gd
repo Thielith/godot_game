@@ -6,6 +6,7 @@ var canJumpRemeberTime = 0.2
 
 var on_wall : bool = false
 var storedDirection : int
+onready var raycast = $Area2D
 
 func _ready():
 	add_state("running")
@@ -16,19 +17,10 @@ func _ready():
 	add_state("sliding_wall")
 	add_state("jumping_wall")
 
+func _state_logic(delta):
+	_state_logicB(delta)
+
 func _physics_process(delta):
-	if parent.direction != 0 and parent.velocity.y > 0.01:
-		if parent.is_on_wall() or on_wall:
-			if parent.direction != storedDirection or abs(parent.velocity.x) > 10:
-				on_wall = false
-			else:
-				on_wall = true
-				parent.velocity.y = 30
-			
-	elif parent.velocity.x > 4 or parent.velocity.x < -4 or parent.direction == 0:
-		on_wall = false
-	storedDirection = parent.direction
-	
 	if Input.is_action_pressed("run") and not [states.crouching, states.crouch_walking].has(state):
 		parent.max_speed = parent.run_speed
 		parent.running = true
@@ -43,9 +35,10 @@ func _input(event):
 	
 	if Input.is_action_just_pressed("jump"):
 		canJumpRemeber = canJumpRemeberTime
-		if state == states.sliding_wall and parent.direction != 0:
+		if state == states.sliding_wall:
 			parent.jump()
-			parent.launch(-100 * parent.direction, null)
+#			print(parent.direction)
+			parent.launch(-120 * storedDirection, null)
 	
 	if Input.is_action_pressed("ui_down") and not parent.running:
 		parent.get_node("CollisionStand").disabled = true
@@ -53,8 +46,6 @@ func _input(event):
 	if Input.is_action_just_released("ui_down"):
 		parent.get_node("CollisionStand").disabled = false
 		parent.get_node("CollisionCrouch").disabled = true
-		
-	
 
 func _get_transition(delta):
 	canJumpRemeber -= delta
@@ -131,23 +122,24 @@ func _get_transition(delta):
 			if parent.velocity.x == 0:
 				return states.crouching
 		
+		states.jumping:
+			if parent.is_on_wall():
+				storedDirection = parent.direction
+				return states.sliding_wall
+		
 		states.falling:
-			if on_wall:
+			if parent.is_on_wall():
+				storedDirection = parent.direction
 				return states.sliding_wall
 		
 		states.sliding_wall:
-			if parent.direction == 0:
-				parent.get_node("AnimatedSprite").speed_scale = 3
-			else:
-				parent.get_node("AnimatedSprite").speed_scale = 1
-			if parent.velocity.y == 0:
-				parent.get_node("AnimatedSprite").speed_scale = 1
+			if parent.velocity.y > 0.01:
+				parent.velocity.y = 30
+			if parent.velocity.y == 0 and parent.is_on_floor():
 				return states.idle
-			if parent.velocity.y < 0:
-				parent.get_node("AnimatedSprite").speed_scale = 1
+			if Input.is_action_just_pressed("jump"):
 				return states.jumping_wall
-			if not on_wall:
-				parent.get_node("AnimatedSprite").speed_scale = 1
+			if Input.is_action_just_pressed("ui_down"):
 				return states.falling
 		
 		states.jumping_wall:

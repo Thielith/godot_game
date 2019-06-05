@@ -6,9 +6,10 @@ func _ready():
 	add_state("walking")
 	add_state("jumping")
 	add_state("falling")
+	add_state("die")
 	call_deferred("set_state", states.idle)
 
-func _state_logic(delta):
+func _state_logicB(delta):
 	parent.enableGravity(delta)
 	
 #	print("State: " + str(state))

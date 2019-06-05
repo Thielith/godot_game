@@ -6,34 +6,22 @@ var eye_reach : int = 10
 var visionRange : int = 180
 var attackRange : int = 60
 
-var patrolArea : Array = [Vector2(184, 144), Vector2(312, 144)]
-var patrol : bool = true
-var patrolTurnAround : bool = false
+var patrolArea : Array
+var direction : int
 
 func _ready():
 	characterName = globals.enemyName
 	health = globals.enemyHealth
 	defense = globals.enemyDefense
 	strength = globals.enemyStrength
-	
-	max_speed = 30
+	mana = globals.enemyMana
 
 func _physics_process(delta):
-	patrol()
+	if velocity.x < 0:
+		$AnimatedSprite.flip_h = false
+	if velocity.x > 0:
+		$AnimatedSprite.flip_h = true
 #	print("Velocity " + self.characterName + ": " + str(velocity))
-
-func patrol():
-	if pos.x < patrolArea[1].x and not patrolTurnAround:
-		$me.set_state($me.states.walk_right)
-	elif pos.x > patrolArea[1].x and not patrolTurnAround:
-		$me.set_state($me.states.idle)
-		patrolTurnAround = true
-	
-	if pos.x > patrolArea[0].x and patrolTurnAround:
-		$me.set_state($me.states.walk_left)
-	elif pos.x < patrolArea[0].x and patrolTurnAround:
-		$me.set_state($me.states.idle)
-		patrolTurnAround = false
 
 func sees_player():
 	var eye_center = pos
@@ -58,7 +46,12 @@ func sees_player():
 					return true
 	return false
 
+func patrol():
+	if direction > 0 and pos.x > patrolArea[1].x:
+		direction = -1
+	if direction < 0 and pos.x < patrolArea[0].x:
+		direction = 1
+	move(direction)
+
 func updateSprite(animation : String):
 	updateSpriteB(animation)
-#	if animation == "run" and velocity.y == 0:
-#		$AnimatedSprite.play("run")
