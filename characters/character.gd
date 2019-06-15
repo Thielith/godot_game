@@ -26,6 +26,11 @@ onready var animationTree = get_node("AnimationTree")
 onready var animationPlayer = get_node("AnimationPlayer")
 onready var playback = animationTree.get("parameters/playback")
 
+# Constants for state machine
+const idle = "idle"
+const walking = "walk"
+const jumping = "jump"
+const falling = "fall"
 
 func _ready():
 	playback.start("idle")
@@ -33,26 +38,30 @@ func _ready():
 
 func _process(delta):
 	match playback.get_current_node():
-		"idle":
+		idle:
 			if velocity.x != 0:
-				playback.travel("walk")
+				playback.travel(walking)
 			if velocity.y < 0:
-				playback.travel("jump")
-			if velocity.y > 0:
-				playback.travel("fall_ledge")
-		"walk":
+				playback.travel(jumping)
+			return
+		walking:
 			if velocity.x == 0:
-				playback.travel("idle")
+				playback.travel(idle)
 			if velocity.y < 0:
-				playback.travel("jump")
+				playback.travel(jumping)
+			return
+		jumping:
 			if velocity.y > 0:
-				playback.travel("fall_ledge")
-		"jump":
-			if velocity.y > 0:
-				playback.travel("fall")
-		"fall":
+				playback.travel(falling)
+			if velocity.y == 0 and on_ground:
+				playback.travel(idle)
+			return
+		falling:
+			if velocity.y < 0:
+				playback.travel(jumping)
 			if velocity.y == 0:
-				playback.travel("idle")
+				playback.travel(idle)
+			return
 
 func enableGravity(delta):
 	#Updates Postion
@@ -70,11 +79,6 @@ func enableGravity(delta):
 		on_ground = true
 	if not onGroundRemeber > 0:
 		on_ground = false
-	
-	if velocity.x < 0:
-		$Sprite.scale.x = -1
-	elif velocity.x > 0:
-		$Sprite.scale.x = 1
 
 func idle():
 	if velocity.y == 0:
