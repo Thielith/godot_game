@@ -12,7 +12,7 @@ var enemyDefense : int = 0
 var enemyStrength : int = 1
 var enemyMana : int = 10
 
-var gravity : float = 10
+var gravity : float = 20
 
 func _ready():
 	randomize()

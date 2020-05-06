@@ -1,10 +1,11 @@
-[gd_scene load_steps=116 format=2]
+[gd_scene load_steps=126 format=2]
 
 [ext_resource path="res://characters/player/player.gd" type="Script" id=1]
 [ext_resource path="res://characters/player/player_right.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10.5, 36 )
+[sub_resource type="CapsuleShape2D" id=1]
+radius = 10.5
+height = 52.0
 
 [sub_resource type="Animation" id=2]
 resource_name = "fall"
@@ -17,13 +18,13 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05, 0.1, 0.15 ),
+"times": PoolRealArray( 0, 0.03, 0.06, 0.1 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 0,
 "values": [ 26, 27, 28, 29 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../Player/CollisionShape2D:shape:extents")
+tracks/1/path = NodePath("CollisionShape2D:shape:radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -32,15 +33,27 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 10.5, 36 ) ]
+"values": [ 10.5 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../Player/CollisionShape2D:position")
+tracks/2/path = NodePath("CollisionShape2D:shape:height")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 52.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -50,7 +63,7 @@ tracks/2/keys = {
 [sub_resource type="Animation" id=3]
 resource_name = "fall_ledge"
 length = 0.1
-step = 0.05
+step = 0.03
 tracks/0/type = "value"
 tracks/0/path = NodePath("../Player/Sprite:frame")
 tracks/0/interp = 1
@@ -58,13 +71,13 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.05 ),
+"times": PoolRealArray( 0, 0.03 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 28, 29 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../Player/CollisionShape2D:shape:extents")
+tracks/1/path = NodePath("CollisionShape2D:shape:radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -73,15 +86,27 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 10.5, 36 ) ]
+"values": [ 10.5 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../Player/CollisionShape2D:position")
+tracks/2/path = NodePath("CollisionShape2D:shape:height")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 52.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -104,7 +129,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../Player/CollisionShape2D:position")
+tracks/1/path = NodePath("CollisionShape2D:shape:radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -113,10 +138,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -0.5, -37 ) ]
+"values": [ 10.5 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../Player/CollisionShape2D:shape:extents")
+tracks/2/path = NodePath("CollisionShape2D:shape:height")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -125,7 +150,19 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 10.5, 36 ) ]
+"values": [ 52.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -0.5, -37 ) ]
 }
 
 [sub_resource type="Animation" id=5]
@@ -144,7 +181,7 @@ tracks/0/keys = {
 "values": [ 30, 31, 32, 33 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../Player/CollisionShape2D:position")
+tracks/1/path = NodePath("CollisionShape2D:shape:radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -153,10 +190,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0.5, -32.25 ) ]
+"values": [ 10.5 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../Player/CollisionShape2D:shape:extents")
+tracks/2/path = NodePath("CollisionShape2D:shape:height")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -165,7 +202,19 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 10.5, 31.5 ) ]
+"values": [ 42.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, -33 ) ]
 }
 
 [sub_resource type="Animation" id=6]
@@ -178,13 +227,13 @@ tracks/0/loop_wrap = true
 tracks/0/imported = false
 tracks/0/enabled = true
 tracks/0/keys = {
-"times": PoolRealArray( 0, 0.1 ),
+"times": PoolRealArray( 0, 0.05 ),
 "transitions": PoolRealArray( 1, 1 ),
 "update": 0,
 "values": [ 24, 25 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../Player/CollisionShape2D:shape:extents")
+tracks/1/path = NodePath("CollisionShape2D:shape:radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -193,15 +242,27 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 10.5, 36 ) ]
+"values": [ 10.5 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../Player/CollisionShape2D:position")
+tracks/2/path = NodePath("CollisionShape2D:shape:height")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 52.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -224,7 +285,7 @@ tracks/0/keys = {
 "values": [ 56, 57, 58, 59 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../Player/CollisionShape2D:shape:extents")
+tracks/1/path = NodePath("CollisionShape2D:shape:radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -233,15 +294,27 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 10.5, 36 ) ]
+"values": [ 10.5 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../Player/CollisionShape2D:position")
+tracks/2/path = NodePath("CollisionShape2D:shape:height")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ 52.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
@@ -264,7 +337,7 @@ tracks/0/keys = {
 "values": [ 18, 19, 20, 21, 22, 23, 16, 17 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("CollisionShape2D:position")
+tracks/1/path = NodePath("CollisionShape2D:shape:radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -273,10 +346,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -0.5, -37 ) ]
+"values": [ 10.5 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("CollisionShape2D:shape:extents")
+tracks/2/path = NodePath("CollisionShape2D:shape:height")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -285,7 +358,19 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 10.5, 36 ) ]
+"values": [ 52.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -0.5, -37 ) ]
 }
 
 [sub_resource type="Animation" id=9]
@@ -303,7 +388,7 @@ tracks/0/keys = {
 "values": [ 46, 47, 48, 49, 50, 51, 52, 53, 54, 55 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../Player/CollisionShape2D:position")
+tracks/1/path = NodePath("CollisionShape2D:shape:radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -312,10 +397,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -0.5, -37.5 ) ]
+"values": [ 10.5 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../Player/CollisionShape2D:shape:extents")
+tracks/2/path = NodePath("CollisionShape2D:shape:height")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -324,7 +409,19 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 10.5, 34 ) ]
+"values": [ 52.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -0.5, -37.5 ) ]
 }
 
 [sub_resource type="Animation" id=10]
@@ -343,7 +440,7 @@ tracks/0/keys = {
 "values": [ 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../Player/CollisionShape2D:position")
+tracks/1/path = NodePath("CollisionShape2D:shape:radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -352,10 +449,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( -0.5, -37 ) ]
+"values": [ 10.5 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../Player/CollisionShape2D:shape:extents")
+tracks/2/path = NodePath("CollisionShape2D:shape:height")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -364,7 +461,19 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 10.5, 36 ) ]
+"values": [ 52.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( -0.5, -37 ) ]
 }
 
 [sub_resource type="Animation" id=11]
@@ -383,7 +492,7 @@ tracks/0/keys = {
 "values": [ 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45 ]
 }
 tracks/1/type = "value"
-tracks/1/path = NodePath("../Player/CollisionShape2D:position")
+tracks/1/path = NodePath("CollisionShape2D:shape:radius")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/imported = false
@@ -392,10 +501,10 @@ tracks/1/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 0.5, -32.25 ) ]
+"values": [ 10.5 ]
 }
 tracks/2/type = "value"
-tracks/2/path = NodePath("../Player/CollisionShape2D:shape:extents")
+tracks/2/path = NodePath("CollisionShape2D:shape:height")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/imported = false
@@ -404,58 +513,151 @@ tracks/2/keys = {
 "times": PoolRealArray( 0 ),
 "transitions": PoolRealArray( 1 ),
 "update": 0,
-"values": [ Vector2( 10.5, 31.5 ) ]
+"values": [ 42.0 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Vector2( 0.5, -33 ) ]
 }
 
-[sub_resource type="AnimationNodeAnimation" id=12]
+[sub_resource type="Animation" id=12]
+resource_name = "fall"
+step = 0.05
+
+[sub_resource type="Animation" id=13]
+resource_name = "fall_ledge"
+
+[sub_resource type="Animation" id=14]
+resource_name = "idle"
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "setNotJumping"
+} ]
+}
+
+[sub_resource type="Animation" id=15]
+resource_name = "idle_crouch"
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "setNotJumping"
+} ]
+}
+
+[sub_resource type="Animation" id=16]
+resource_name = "jump"
+
+[sub_resource type="Animation" id=17]
+resource_name = "jump_wall"
+
+[sub_resource type="Animation" id=18]
+resource_name = "run"
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "setNotJumping"
+} ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "slide_wall"
+
+[sub_resource type="Animation" id=20]
+resource_name = "walk"
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "setNotJumping"
+} ]
+}
+
+[sub_resource type="Animation" id=21]
+resource_name = "walk_crouch"
+tracks/0/type = "method"
+tracks/0/path = NodePath(".")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "setNotJumping"
+} ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=22]
 animation = "fall"
 
-[sub_resource type="AnimationNodeAnimation" id=13]
+[sub_resource type="AnimationNodeAnimation" id=23]
 animation = "fall_ledge"
 
-[sub_resource type="AnimationNodeAnimation" id=14]
+[sub_resource type="AnimationNodeAnimation" id=24]
 animation = "idle"
 
-[sub_resource type="AnimationNodeAnimation" id=15]
+[sub_resource type="AnimationNodeAnimation" id=25]
 animation = "idle_crouch"
 
-[sub_resource type="AnimationNodeAnimation" id=16]
+[sub_resource type="AnimationNodeAnimation" id=26]
 animation = "jump"
 
-[sub_resource type="AnimationNodeAnimation" id=17]
+[sub_resource type="AnimationNodeAnimation" id=27]
 animation = "jump_wall"
 
-[sub_resource type="AnimationNodeAnimation" id=18]
+[sub_resource type="AnimationNodeAnimation" id=28]
 animation = "run"
 
-[sub_resource type="AnimationNodeAnimation" id=19]
+[sub_resource type="AnimationNodeAnimation" id=29]
 animation = "slide_wall"
 
-[sub_resource type="AnimationNodeAnimation" id=20]
+[sub_resource type="AnimationNodeAnimation" id=30]
 animation = "walk"
 
-[sub_resource type="AnimationNodeAnimation" id=21]
+[sub_resource type="AnimationNodeAnimation" id=31]
 animation = "walk_crouch"
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=22]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=23]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=24]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=25]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=26]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=27]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=28]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=29]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=30]
-
-[sub_resource type="AnimationNodeStateMachineTransition" id=31]
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=32]
 
@@ -617,31 +819,51 @@ animation = "walk_crouch"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id=111]
 
-[sub_resource type="AnimationNodeStateMachine" id=112]
-states/fall/node = SubResource( 12 )
-states/fall/position = Vector2( -389, -365.984 )
-states/fall_ledge/node = SubResource( 13 )
-states/fall_ledge/position = Vector2( -244, -365.984 )
-states/idle/node = SubResource( 14 )
-states/idle/position = Vector2( -522, -265.984 )
-states/idle_crouch/node = SubResource( 15 )
-states/idle_crouch/position = Vector2( -572, -173.984 )
-states/jump/node = SubResource( 16 )
-states/jump/position = Vector2( -522, -357.984 )
-states/jump_wall/node = SubResource( 17 )
-states/jump_wall/position = Vector2( -321, -451.984 )
-states/run/node = SubResource( 18 )
-states/run/position = Vector2( -244, -265.984 )
-states/slide_wall/node = SubResource( 19 )
-states/slide_wall/position = Vector2( -522, -451.984 )
-states/walk/node = SubResource( 20 )
-states/walk/position = Vector2( -389, -265.984 )
-states/walk_crouch/node = SubResource( 21 )
-states/walk_crouch/position = Vector2( -376, -173.984 )
-transitions = [ "idle", "jump", SubResource( 22 ), "idle", "slide_wall", SubResource( 23 ), "idle", "fall", SubResource( 24 ), "idle", "jump_wall", SubResource( 25 ), "idle", "walk", SubResource( 26 ), "idle", "run", SubResource( 27 ), "idle", "fall_ledge", SubResource( 28 ), "idle", "walk_crouch", SubResource( 29 ), "idle", "idle_crouch", SubResource( 30 ), "jump", "idle", SubResource( 31 ), "jump", "walk", SubResource( 32 ), "jump", "fall", SubResource( 33 ), "jump", "slide_wall", SubResource( 34 ), "jump", "jump_wall", SubResource( 35 ), "jump", "fall_ledge", SubResource( 36 ), "jump", "run", SubResource( 37 ), "jump", "walk_crouch", SubResource( 38 ), "jump", "idle_crouch", SubResource( 39 ), "slide_wall", "jump", SubResource( 40 ), "slide_wall", "fall", SubResource( 41 ), "slide_wall", "jump_wall", SubResource( 42 ), "slide_wall", "fall_ledge", SubResource( 43 ), "slide_wall", "run", SubResource( 44 ), "slide_wall", "walk", SubResource( 45 ), "slide_wall", "idle", SubResource( 46 ), "slide_wall", "idle_crouch", SubResource( 47 ), "slide_wall", "walk_crouch", SubResource( 48 ), "jump_wall", "slide_wall", SubResource( 49 ), "jump_wall", "jump", SubResource( 50 ), "jump_wall", "fall", SubResource( 51 ), "jump_wall", "fall_ledge", SubResource( 52 ), "jump_wall", "run", SubResource( 53 ), "jump_wall", "walk", SubResource( 54 ), "jump_wall", "idle", SubResource( 55 ), "jump_wall", "walk_crouch", SubResource( 56 ), "jump_wall", "idle_crouch", SubResource( 57 ), "fall", "jump", SubResource( 58 ), "fall", "slide_wall", SubResource( 59 ), "fall", "jump_wall", SubResource( 60 ), "fall", "fall_ledge", SubResource( 61 ), "fall", "run", SubResource( 62 ), "fall", "walk", SubResource( 63 ), "fall", "idle", SubResource( 64 ), "fall", "walk_crouch", SubResource( 65 ), "fall", "idle_crouch", SubResource( 66 ), "walk", "idle", SubResource( 67 ), "walk", "walk_crouch", SubResource( 68 ), "walk", "idle_crouch", SubResource( 69 ), "walk", "jump", SubResource( 70 ), "walk", "slide_wall", SubResource( 71 ), "walk", "fall", SubResource( 72 ), "walk", "jump_wall", SubResource( 73 ), "walk", "fall_ledge", SubResource( 74 ), "walk", "run", SubResource( 75 ), "idle_crouch", "idle", SubResource( 76 ), "idle_crouch", "walk_crouch", SubResource( 77 ), "idle_crouch", "walk", SubResource( 78 ), "idle_crouch", "jump", SubResource( 79 ), "idle_crouch", "fall", SubResource( 80 ), "idle_crouch", "slide_wall", SubResource( 81 ), "idle_crouch", "jump_wall", SubResource( 82 ), "idle_crouch", "run", SubResource( 83 ), "idle_crouch", "fall_ledge", SubResource( 84 ), "walk_crouch", "idle_crouch", SubResource( 85 ), "walk_crouch", "idle", SubResource( 86 ), "walk_crouch", "walk", SubResource( 87 ), "walk_crouch", "run", SubResource( 88 ), "walk_crouch", "fall", SubResource( 89 ), "walk_crouch", "jump", SubResource( 90 ), "walk_crouch", "fall_ledge", SubResource( 91 ), "walk_crouch", "jump_wall", SubResource( 92 ), "walk_crouch", "slide_wall", SubResource( 93 ), "run", "walk", SubResource( 94 ), "run", "walk_crouch", SubResource( 95 ), "run", "idle_crouch", SubResource( 96 ), "run", "idle", SubResource( 97 ), "run", "fall", SubResource( 98 ), "run", "jump", SubResource( 99 ), "run", "slide_wall", SubResource( 100 ), "run", "jump_wall", SubResource( 101 ), "run", "fall_ledge", SubResource( 102 ), "fall_ledge", "run", SubResource( 103 ), "fall_ledge", "walk", SubResource( 104 ), "fall_ledge", "idle", SubResource( 105 ), "fall_ledge", "jump", SubResource( 106 ), "fall_ledge", "fall", SubResource( 107 ), "fall_ledge", "jump_wall", SubResource( 108 ), "fall_ledge", "slide_wall", SubResource( 109 ), "fall_ledge", "walk_crouch", SubResource( 110 ), "fall_ledge", "idle_crouch", SubResource( 111 ) ]
-graph_offset = Vector2( -1212.4, -423.284 )
+[sub_resource type="AnimationNodeStateMachineTransition" id=112]
 
-[sub_resource type="AnimationNodeStateMachinePlayback" id=113]
+[sub_resource type="AnimationNodeStateMachineTransition" id=113]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=114]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=115]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=116]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=117]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=118]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=119]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=120]
+
+[sub_resource type="AnimationNodeStateMachineTransition" id=121]
+
+[sub_resource type="AnimationNodeStateMachine" id=122]
+states/fall/node = SubResource( 22 )
+states/fall/position = Vector2( -389, -365.984 )
+states/fall_ledge/node = SubResource( 23 )
+states/fall_ledge/position = Vector2( -244, -365.984 )
+states/idle/node = SubResource( 24 )
+states/idle/position = Vector2( -522, -265.984 )
+states/idle_crouch/node = SubResource( 25 )
+states/idle_crouch/position = Vector2( -572, -173.984 )
+states/jump/node = SubResource( 26 )
+states/jump/position = Vector2( -522, -357.984 )
+states/jump_wall/node = SubResource( 27 )
+states/jump_wall/position = Vector2( -321, -451.984 )
+states/run/node = SubResource( 28 )
+states/run/position = Vector2( -244, -265.984 )
+states/slide_wall/node = SubResource( 29 )
+states/slide_wall/position = Vector2( -522, -451.984 )
+states/walk/node = SubResource( 30 )
+states/walk/position = Vector2( -389, -265.984 )
+states/walk_crouch/node = SubResource( 31 )
+states/walk_crouch/position = Vector2( -376, -173.984 )
+transitions = [ "idle", "jump", SubResource( 32 ), "idle", "slide_wall", SubResource( 33 ), "idle", "fall", SubResource( 34 ), "idle", "jump_wall", SubResource( 35 ), "idle", "walk", SubResource( 36 ), "idle", "run", SubResource( 37 ), "idle", "fall_ledge", SubResource( 38 ), "idle", "walk_crouch", SubResource( 39 ), "idle", "idle_crouch", SubResource( 40 ), "jump", "idle", SubResource( 41 ), "jump", "walk", SubResource( 42 ), "jump", "fall", SubResource( 43 ), "jump", "slide_wall", SubResource( 44 ), "jump", "jump_wall", SubResource( 45 ), "jump", "fall_ledge", SubResource( 46 ), "jump", "run", SubResource( 47 ), "jump", "walk_crouch", SubResource( 48 ), "jump", "idle_crouch", SubResource( 49 ), "slide_wall", "jump", SubResource( 50 ), "slide_wall", "fall", SubResource( 51 ), "slide_wall", "jump_wall", SubResource( 52 ), "slide_wall", "fall_ledge", SubResource( 53 ), "slide_wall", "run", SubResource( 54 ), "slide_wall", "walk", SubResource( 55 ), "slide_wall", "idle", SubResource( 56 ), "slide_wall", "idle_crouch", SubResource( 57 ), "slide_wall", "walk_crouch", SubResource( 58 ), "jump_wall", "slide_wall", SubResource( 59 ), "jump_wall", "jump", SubResource( 60 ), "jump_wall", "fall", SubResource( 61 ), "jump_wall", "fall_ledge", SubResource( 62 ), "jump_wall", "run", SubResource( 63 ), "jump_wall", "walk", SubResource( 64 ), "jump_wall", "idle", SubResource( 65 ), "jump_wall", "walk_crouch", SubResource( 66 ), "jump_wall", "idle_crouch", SubResource( 67 ), "fall", "jump", SubResource( 68 ), "fall", "slide_wall", SubResource( 69 ), "fall", "jump_wall", SubResource( 70 ), "fall", "fall_ledge", SubResource( 71 ), "fall", "run", SubResource( 72 ), "fall", "walk", SubResource( 73 ), "fall", "idle", SubResource( 74 ), "fall", "walk_crouch", SubResource( 75 ), "fall", "idle_crouch", SubResource( 76 ), "walk", "idle", SubResource( 77 ), "walk", "walk_crouch", SubResource( 78 ), "walk", "idle_crouch", SubResource( 79 ), "walk", "jump", SubResource( 80 ), "walk", "slide_wall", SubResource( 81 ), "walk", "fall", SubResource( 82 ), "walk", "jump_wall", SubResource( 83 ), "walk", "fall_ledge", SubResource( 84 ), "walk", "run", SubResource( 85 ), "idle_crouch", "idle", SubResource( 86 ), "idle_crouch", "walk_crouch", SubResource( 87 ), "idle_crouch", "walk", SubResource( 88 ), "idle_crouch", "jump", SubResource( 89 ), "idle_crouch", "fall", SubResource( 90 ), "idle_crouch", "slide_wall", SubResource( 91 ), "idle_crouch", "jump_wall", SubResource( 92 ), "idle_crouch", "run", SubResource( 93 ), "idle_crouch", "fall_ledge", SubResource( 94 ), "walk_crouch", "idle_crouch", SubResource( 95 ), "walk_crouch", "idle", SubResource( 96 ), "walk_crouch", "walk", SubResource( 97 ), "walk_crouch", "run", SubResource( 98 ), "walk_crouch", "fall", SubResource( 99 ), "walk_crouch", "jump", SubResource( 100 ), "walk_crouch", "fall_ledge", SubResource( 101 ), "walk_crouch", "jump_wall", SubResource( 102 ), "walk_crouch", "slide_wall", SubResource( 103 ), "run", "walk", SubResource( 104 ), "run", "walk_crouch", SubResource( 105 ), "run", "idle_crouch", SubResource( 106 ), "run", "idle", SubResource( 107 ), "run", "fall", SubResource( 108 ), "run", "jump", SubResource( 109 ), "run", "slide_wall", SubResource( 110 ), "run", "jump_wall", SubResource( 111 ), "run", "fall_ledge", SubResource( 112 ), "fall_ledge", "run", SubResource( 113 ), "fall_ledge", "walk", SubResource( 114 ), "fall_ledge", "idle", SubResource( 115 ), "fall_ledge", "jump", SubResource( 116 ), "fall_ledge", "fall", SubResource( 117 ), "fall_ledge", "jump_wall", SubResource( 118 ), "fall_ledge", "slide_wall", SubResource( 119 ), "fall_ledge", "walk_crouch", SubResource( 120 ), "fall_ledge", "idle_crouch", SubResource( 121 ) ]
+graph_offset = Vector2( -1212.4, -662.347 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=123]
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -668,39 +890,53 @@ anims/slide_wall = SubResource( 9 )
 anims/walk = SubResource( 10 )
 anims/walk_crouch = SubResource( 11 )
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource( 112 )
-anim_player = NodePath("../AnimationPlayer")
-active = true
-parameters/playback = SubResource( 113 )
+[node name="StateMachineStates" type="AnimationPlayer" parent="."]
+anims/fall = SubResource( 12 )
+anims/fall_ledge = SubResource( 13 )
+anims/idle = SubResource( 14 )
+anims/idle_crouch = SubResource( 15 )
+anims/jump = SubResource( 16 )
+anims/jump_wall = SubResource( 17 )
+anims/run = SubResource( 18 )
+anims/slide_wall = SubResource( 19 )
+anims/walk = SubResource( 20 )
+anims/walk_crouch = SubResource( 21 )
 
-[node name="WallRaycasts" type="Node2D" parent="."]
-editor/display_folded = true
+[node name="StateMachine" type="AnimationTree" parent="."]
+tree_root = SubResource( 122 )
+anim_player = NodePath("../StateMachineStates")
+parameters/playback = SubResource( 123 )
 
-[node name="LeftWallRaycasts" type="Node2D" parent="WallRaycasts"]
-
-[node name="LeftWallRaycastTop" type="RayCast2D" parent="WallRaycasts/LeftWallRaycasts"]
-position = Vector2( -11.0758, -60 )
+[node name="LeftWallRaycastTop" type="RayCast2D" parent="."]
+position = Vector2( -10.8444, -29.9585 )
 enabled = true
-cast_to = Vector2( -1, 0 )
+cast_to = Vector2( -2, 0 )
+
+[node name="LeftWallRaycastBottom" type="RayCast2D" parent="."]
+position = Vector2( -10.8444, -13.5763 )
+enabled = true
+cast_to = Vector2( -2, 0 )
+
+[node name="RightWallRaycastTop" type="RayCast2D" parent="."]
+position = Vector2( 9.82667, -30.0029 )
+enabled = true
+cast_to = Vector2( 2, 0 )
 collide_with_areas = true
 
-[node name="LeftWallRaycastBottom" type="RayCast2D" parent="WallRaycasts/LeftWallRaycasts"]
-position = Vector2( -11.0758, -9.98773 )
+[node name="RightWallRaycastBottom" type="RayCast2D" parent="."]
+position = Vector2( 9.82667, -13.5763 )
 enabled = true
-cast_to = Vector2( -1, 0 )
+cast_to = Vector2( 2, 0 )
 collide_with_areas = true
 
-[node name="RightWallRaycasts" type="Node2D" parent="WallRaycasts"]
-
-[node name="RightWallRaycastTop" type="RayCast2D" parent="WallRaycasts/RightWallRaycasts"]
-position = Vector2( 10.0416, -60 )
+[node name="LeftFloorRaycast" type="RayCast2D" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( -7.72769, -3.70775 )
 enabled = true
-cast_to = Vector2( 1, 0 )
-collide_with_areas = true
+cast_to = Vector2( -4, 4 )
 
-[node name="RightWallRaycastBottom" type="RayCast2D" parent="WallRaycasts/RightWallRaycasts"]
-position = Vector2( 10.0416, -9.98773 )
+[node name="RightFloorRaycast" type="RayCast2D" parent="."]
+modulate = Color( 0, 0, 0, 1 )
+position = Vector2( 6.79245, -3.70775 )
 enabled = true
-cast_to = Vector2( 1, 0 )
-collide_with_areas = true
+cast_to = Vector2( 4, 4 )

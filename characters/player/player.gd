@@ -4,11 +4,10 @@ extends character
 var direction : int
 onready var gravityDefault : float = gravity
 
-var run_speed = 100
 var jumpPressedRemeber = 0
 
-onready var left_wall_raycasts = $WallRaycasts/LeftWallRaycasts
-onready var right_wall_raycasts = $WallRaycasts/RightWallRaycasts
+onready var left_wall_raycasts = [$LeftWallRaycastTop, $LeftWallRaycastBottom]
+onready var right_wall_raycasts = [$RightWallRaycastTop, $RightWallRaycastBottom]
 var wall_direction : int = 0
 var wallJumpEnabled : bool = true
 
@@ -20,21 +19,12 @@ const falling_ledge = "fall_ledge"
 const sliding_wall = "slide_wall"
 const jumping_wall = "jump_wall"
 
-var currentState
-
 func _ready():
-	characterName = globals.playerName
-	health = globals.playerHealth
-	defense = globals.playerDefense
-	strength = globals.playerStrength
-	mana = globals.playerMana
-	
-	playback = animationTree.get("parameters/playback")
-	playback.start("idle")
-	animationTree.active = true
+	pass
 
 func _physics_process(delta):
 	enableGravity(delta)
+	
 	if currentState != sliding_wall:
 		move(direction)
 	
@@ -45,15 +35,14 @@ func _physics_process(delta):
 	
 	_update_wall_direction()
 	if currentState == sliding_wall and velocity.y > 0:
-		velocity.y = globals.gravity * 5
+		velocity.y = globals.gravity * 3
 	else:
 		gravity = globals.gravity
 	if Input.is_action_pressed("ui_down") and [sliding_wall, falling].has(currentState):
-		launch(-50 * wall_direction, null)
+		launch(-100 * wall_direction, null)
 		wallJumpSwitch(false)
 	if direction != 0 and not wallJumpEnabled:
 		wallJumpSwitch(true)
-
 func _process(delta):
 	_input_process()
 	_state_process()
@@ -62,22 +51,20 @@ func _process(delta):
 		$Sprite.set_texture(preload("res://characters/player/player_left.png"))
 	elif velocity.x > 0:
 		$Sprite.set_texture(preload("res://characters/player/player_right.png"))
-	
 
 func _input_process():
 	direction = int(Input.is_action_pressed("ui_right")) - int(Input.is_action_pressed("ui_left"))
 	if Input.is_action_just_pressed("jump") and [idle, walking, running, sliding_wall].has(currentState):
 		jump()
-		if wall_direction != 0 and not on_ground:
-			launch(180 * -wall_direction, null)
+		if currentState == sliding_wall:
+			launch(360 * -wall_direction, null)
 	if Input.is_action_pressed("run") and not [idle_crouch, walking_crouch].has(currentState):
 		max_speed = run_speed
 	else:
 		max_speed = walk_speed
-
 func _state_process():
 	currentState = playback.get_current_node()
-#	print(velocity)
+#	print(_check_if_slope())
 	if Input.is_action_pressed("interact"):
 		print(currentState)
 #		print(wall_direction)
@@ -93,7 +80,7 @@ func _state_process():
 				playback.travel(walking_crouch)
 			if Input.is_action_just_released("ui_down"):
 				playback.travel(idle)
-			if velocity.y > 0:
+			if velocity.y > 20.005:
 				playback.travel(falling_ledge)
 			return
 		walking:
@@ -101,7 +88,7 @@ func _state_process():
 				playback.travel(walking_crouch)
 			if Input.is_action_pressed("run"):
 				playback.travel(running)
-			if velocity.y > 0:
+			if velocity.y > 0 and not on_ground and not _check_if_slope():
 				playback.travel(falling_ledge)
 			return
 		walking_crouch:
@@ -109,7 +96,7 @@ func _state_process():
 				playback.travel(idle_crouch)
 			if Input.is_action_just_released("ui_down"):
 				playback.travel(walking)
-			if velocity.y > 0:
+			if velocity.y > 20.005 and not is_on_floor():
 				playback.travel(falling_ledge)
 			return
 		running:
@@ -117,9 +104,9 @@ func _state_process():
 				playback.travel(walking)
 			if velocity.x == 0:
 				playback.travel(idle)
-			if velocity.y < 0:
+			if velocity.y < 0 and not is_on_floor() and not _check_if_slope():
 				playback.travel(jumping)
-			if velocity.y > 0:
+			if velocity.y > 0 and not is_on_floor() and not _check_if_slope():
 				playback.travel(falling_ledge)
 			return
 		jumping:
@@ -133,25 +120,25 @@ func _state_process():
 		falling_ledge:
 			if velocity.y < 0:
 				playback.travel(jumping)
-			if velocity.y == 0:
+			if velocity.y == 0 or _check_if_slope():
 				playback.travel(idle)
 			if wall_direction != 0 and direction == wall_direction:
 				playback.travel(sliding_wall)
 			return
 		sliding_wall:
-			wallJumpExtendRaycast(true)
+			wallJumpExtendRaycast(true, wall_direction)
 			if on_ground and velocity.y == 0:
-				wallJumpExtendRaycast(false)
+				wallJumpExtendRaycast(false, 0)
 				playback.travel(idle)
 			elif wall_direction == 0:
-				wallJumpExtendRaycast(false)
+				wallJumpExtendRaycast(false, 0)
 				playback.travel(falling)
 			elif Input.is_action_just_pressed("jump"):
-				wallJumpExtendRaycast(false)
+				wallJumpExtendRaycast(false, 0)
 				playback.travel(jumping_wall)
 			elif Input.is_action_pressed("ui_down"):
 				print("player")
-				wallJumpExtendRaycast(false)
+				wallJumpExtendRaycast(false, 0)
 				playback.travel(falling)
 			return
 		jumping_wall:
@@ -166,8 +153,8 @@ func _state_process():
 					playback.travel(falling)
 			return
 
-func _check_is_valid_wall(wall_raycasts):
-	for raycast in wall_raycasts.get_children():
+func _check_is_valid_wall(wall_raycasts : Array):
+	for raycast in wall_raycasts:
 		if raycast.is_colliding():
 			var dot = acos(Vector2.UP.dot(raycast.get_collision_normal()))
 			if dot > PI * 0.35 and dot < PI*0.55:
@@ -183,28 +170,30 @@ func _update_wall_direction():
 		wall_direction = -int(is_near_wall_left) + int(is_near_wall_right)
 func wallJumpSwitch(enabled : bool):
 	if enabled:
-		for raycast in left_wall_raycasts.get_children():
+		for raycast in left_wall_raycasts:
 			raycast.enabled = true
-		for raycast in right_wall_raycasts.get_children():
+		for raycast in right_wall_raycasts:
 			raycast.enabled = true
 		wallJumpEnabled = true
 	elif not enabled:
-		for raycast in left_wall_raycasts.get_children():
+		for raycast in left_wall_raycasts:
 			raycast.enabled = false
-		for raycast in right_wall_raycasts.get_children():
+		for raycast in right_wall_raycasts:
 			raycast.enabled = false
 		wallJumpEnabled = false
-func wallJumpExtendRaycast(arg : bool):
+func wallJumpExtendRaycast(arg : bool, direction : int):
 	if arg:
-		for raycast in left_wall_raycasts.get_children():
-			raycast.cast_to.x = -20
-		for raycast in right_wall_raycasts.get_children():
-			raycast.cast_to.x = 20
+		if direction < 0:
+			for raycast in left_wall_raycasts:
+				raycast.cast_to.x = -20
+		elif direction > 0:
+			for raycast in right_wall_raycasts:
+				raycast.cast_to.x = 20
 	elif not arg:
-		for raycast in left_wall_raycasts.get_children():
-			raycast.cast_to.x = -1
-		for raycast in right_wall_raycasts.get_children():
-			raycast.cast_to.x = 1
+		for raycast in left_wall_raycasts:
+			raycast.cast_to.x = -2
+		for raycast in right_wall_raycasts:
+			raycast.cast_to.x = 2
 
 #----------------------------------------------------------------------------------
 
@@ -225,10 +214,10 @@ func loadScene(sceneName):
 	else:
 		storeStats(false)
 	get_tree().change_scene("res://scenes/" + sceneName + ".tscn")
-func checkBattle():
-	if collide:
-		print("collision: " + collide.collider.name)
-	if collide and collide.collider.name != "ground":
-		loadScene("battle")
+#func checkBattle():
+#	if collide:
+#		print("collision: " + collide.collider.name)
+#	if collide and collide.collider.name != "ground":
+#		loadScene("battle")
 
 #----------------------------------------------------------------------------------
